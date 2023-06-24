@@ -1,5 +1,7 @@
-﻿using Api.Models;
+﻿using Api.Data;
+using Api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 
 namespace Api.Controllers
 {
@@ -7,26 +9,31 @@ namespace Api.Controllers
     [Route("api/[controller]")]
     public class EventController : ControllerBase
     {
+        private readonly ApplicationDbContext _db;
+
+        public EventController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
         public IEnumerable<Event> _Event = new Event[]
         {
             new Event()
             {
-                EventId = 1,
-                EventName = "Test",
+                EventName = "Test1",
                 EventLot = "1º Lote",
-                QuantityPeopleLimit = 10,
+                QuantityPeopleLimit = 250,
                 LocalEvent = "São Paulo",
                 DateEvent = DateTime.Now.AddDays(2).ToString("dd/MM/yyyy"),
                 ImageUrl ="Test.png"
             },
             new Event()
             {
-                EventId = 2,
-                EventName = "Test",
-                EventLot = "1º Lote",
-                QuantityPeopleLimit = 10,
+                EventName = "Test2",
+                EventLot = "2º Lote",
+                QuantityPeopleLimit = 350,
                 LocalEvent = "São Paulo",
-                DateEvent = DateTime.Now.AddDays(2).ToString("dd/MM/yyyy"),
+                DateEvent = DateTime.Now.AddDays(30).ToString("dd/MM/yyyy"),
                 ImageUrl ="Test.png"
             }
         };
@@ -38,9 +45,19 @@ namespace Api.Controllers
             return _Event;
         }
         [HttpGet("{id}")]
-        public IEnumerable<Event> GetById(int id)
+        public Event GetById(int id)
         {
-            return _Event.Where(x => x.EventId == id);
+            var eventDb = _db.Events.Where(x => x.EventId == id).FirstOrDefault();
+            return eventDb;
+        }
+        [HttpPost("{name}")]
+        public async Task<IActionResult> Create(string name)
+        {
+            var newEvent = _Event.Where(x => x.EventName == name).FirstOrDefault();
+            
+            await _db.Events.AddAsync(newEvent);
+            await _db.SaveChangesAsync();
+            return Ok();
         }
     }
 }

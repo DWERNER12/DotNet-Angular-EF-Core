@@ -1,7 +1,6 @@
 ﻿using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 
 namespace Api.Controllers
 {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "r9cG63o85FRfvBGBw6MXi1vbQuocNVrfcNpXkOlFzRz71nmeJsAVvgFRiTa8DL+Y7gLRDQDkJEycqJhCEokL2w==",
+  "dgSpecHash": "VtWMe/UJqOtP3WXOOKqjlSTIe/wycKxAM/Tgx7IN1ENlfQ1AQ/ho+PD2sy7nq0JDlzECK2DsaM2LSVYi+SyVBw==",
   "success": true,
-  "projectFilePath": "c:\\Users\\david\\Repositorios\\CursoFullStack\\DotNet-Angular-EF-Core\\Back\\Api\\Api\\Api.csproj",
+  "projectFilePath": "C:\\Users\\david\\Repositorios\\CursoFullStack\\DotNet-Angular-EF-Core\\Back\\Api\\Api\\Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\david\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\david\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

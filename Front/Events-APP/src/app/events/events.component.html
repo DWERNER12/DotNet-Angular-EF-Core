@@ -1,7 +1,11 @@
-<h1>Eventos</h1>
-
-<div *ngFor="let event of events">
-  <p> <b>Tema:</b> {{event.eventName}}</p>
-  <p> <b>Local:</b> {{event.localEvent}}</p>
-  <hr />
+<div class="card mt-3 ">
+  <div class="card-header d-flex justify-content-between align-items-center ">
+    <h5>Eventos</h5>
+    <div class="form-group d-flex align-items-center">
+      <input type="search" class="form-control mr-2" placeholder="Buscar">
+      <button class="btn btn-outline-succes">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+  </div>
 </div>

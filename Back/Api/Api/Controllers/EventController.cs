@@ -41,7 +41,8 @@ namespace Api.Controllers
         [HttpGet]
         public IEnumerable<Event> Get()
         {
-            return _Event;
+            var eventDb = _db.Events.ToList();
+            return eventDb;
         }
         [HttpGet("{id}")]
         public Event GetById(int id)

@@ -1,11 +1,52 @@
-<div class="card mt-3 ">
-  <div class="card-header d-flex justify-content-between align-items-center ">
+<div class="card mt-3 bg-secondary-custom ">
+  <div class="card-header d-flex justify-content-between align-items-center">
     <h5>Eventos</h5>
     <div class="form-group d-flex align-items-center">
-      <input type="search" class="form-control mr-2" placeholder="Buscar">
-      <button class="btn btn-outline-succes">
+      <input type="search" class="form-control mr-2" placeholder="Buscar" [(ngModel)]="filterList">
+      <!-- <button class="btn btn-outline-succes">
         <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
+      </button> -->
     </div>
+  </div>
+  <div *ngIf="events.length">
+      <div class="card-header">
+        <h5>Eventos</h5>
+      </div>
+    <div *ngFor="let event of eventsFilters" class="card mt-2">
+      <div class="d-flex justify-content-around mt-3">
+        <div>
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="expandImg()">
+            {{isExpand ? "Ocultar Imagem" : "Exibir Imagem"}}
+          </button>
+          <div [collapse]="!isExpand" [isAnimated]="true">
+            <img src="/assets/img/{{event.imageUrl}}" [style.width.px]="widthImg" [style.margin.px]="marginImg">
+            <!--teste binding nos estilos das img-->
+          </div>
+        </div>
+        <div>
+          <label>Tema</label>
+          <h5 class="text-center">{{event.eventName}}</h5>
+        </div>
+        <div>
+          <label>Local</label>
+          <h5 class="text-center">{{event.localEvent}}</h5>
+        </div>
+        <div>
+          <label>Data</label>
+          <h5 class="text-center">{{event.dateEvent}}</h5>
+        </div>
+        <div>
+          <label>Qtd Pessoas</label>
+          <h5 class="text-center">{{event.quantityPeopleLimit}}</h5>
+        </div>
+        <div>
+          <label>Lote</label>
+          <h5 class="text-center">{{event.eventLot}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!events.length" class="card text-center">
+    <h4>Eventos não encontrados!</h4>
   </div>
 </div>

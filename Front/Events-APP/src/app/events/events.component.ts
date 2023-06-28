@@ -49,6 +49,11 @@ export class EventsComponent implements OnInit {
 
   expandImg() {
     this.isExpand = !this.isExpand;
+    if (this.isExpand) {
+          this.widthImg = 100;
+        } else {
+          this.widthImg = 25;
+        }
   }
 
   public getEvents(): void {

@@ -26,24 +26,24 @@
       <div class="d-flex justify-content-around mt-3 ">
         <div>
           <div [collapse]="!isExpand" [isAnimated]="true">
-            <img src="/assets/img/{{event.imageUrl}}" [style.width.px]="widthImg" [style.margin.px]="marginImg">
+            <img src="/assets/img/{{event.imageURL}}" [style.width.px]="widthImg" [style.margin.px]="marginImg">
             <!--teste binding nos estilos das img-->
           </div>
         </div>
         <div>
-          <h5 class="text-center">{{event.eventName}}</h5>
+          <h5 class="text-center">{{event.name}}</h5>
         </div>
         <div>
-          <h5 class="text-center">{{event.localEvent}}</h5>
+          <h5 class="text-center">{{event.local}}</h5>
         </div>
         <div>
-          <h5 class="text-center">{{event.dateEvent}}</h5>
+          <h5 class="text-center">{{event.date}}</h5>
         </div>
         <div>
-          <h5 class="text-center">{{event.quantityPeopleLimit}}</h5>
+          <h5 class="text-center">{{event.quantityPeople}}</h5>
         </div>
         <div>
-          <h5 class="text-center">{{event.eventLot}}</h5>
+          <h5 class="text-center">{{event.Lot}}</h5>
         </div>
       </div>
     </div>

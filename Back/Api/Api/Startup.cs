@@ -1,6 +1,6 @@
-﻿using Api.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Persistence.Context;
 using System.Net;
 
 namespace Api

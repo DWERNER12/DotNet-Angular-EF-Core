@@ -1,13 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-
+import { format } from 'date-fns';
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
+  
 })
 export class EventsComponent implements OnInit {
 
+  formatarData(data: Date): string {
+    return format(data, 'dd/MM/yyyy'); 
+  }
   public events: any = [];
   public eventsFilters: any = [];
   widthImg: number = 100; 
@@ -22,13 +26,13 @@ export class EventsComponent implements OnInit {
     this._filterList = value;
     // filtrar direto com POO
     this.eventsFilters = this.events.filter((event: {
-      eventName: string;
-      localEvent: string;
-      dateEvent: string;
+      name: string;
+      local: string;
+      date: string;
       }) =>
-      event.eventName.toLowerCase().includes(this.filterList.toLowerCase()) ||
-      event.localEvent.toLowerCase().includes(this.filterList.toLowerCase()) ||
-      event.dateEvent.toLowerCase().includes(this.filterList.toLowerCase())
+      event.name.toLowerCase().includes(this.filterList.toLowerCase()) ||
+      event.local.toLowerCase().includes(this.filterList.toLowerCase()) ||
+      event.date.toLowerCase().includes(this.filterList.toLowerCase())
       ); 
 
     //this.events = this.filterList ? this.filterEvents(this.filterList) : this.events;  //filtrar com metodo a parte

@@ -1,7 +1,7 @@
 ﻿using Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Context
+namespace Persistence.Contexts
 {
     public class ApplicationDbContext : DbContext
     {
@@ -14,6 +14,16 @@ namespace Persistence.Context
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             modelBuilder.Entity<EventAssignedSpeaker>().HasKey(x => new { x.EventId, x.SpeakerId });
+
+            modelBuilder.Entity<Event>()
+                .HasMany(x => x.SocialNetworks)
+                .WithOne(sn => sn.Event)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Speaker>()
+                .HasMany(x => x.SocialNetworks)
+                .WithOne(sn => sn.Speaker)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

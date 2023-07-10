@@ -1,6 +1,6 @@
 ﻿using Domain;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Context;
+using Persistence.Contexts;
 using Persistence.Interfaces;
 
 namespace Persistence.Services
@@ -12,6 +12,7 @@ namespace Persistence.Services
         public EventPersistence(ApplicationDbContext db)
         {
             _db = db;
+            //_db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
         public async Task<List<Event>> GetAllEventsAsync(bool includeSpeakers = false)
         {
@@ -22,7 +23,7 @@ namespace Persistence.Services
             if (includeSpeakers) query = query.Include(x => x.EventsAssignedSpeakers)
                     .ThenInclude(x => x.Speaker);
 
-            query = query.OrderBy(x => x.Id);
+            query = query.AsNoTracking().OrderBy(x => x.Id);
 
             return await query.ToListAsync();
         }
@@ -35,7 +36,7 @@ namespace Persistence.Services
             if (includeSpeakers) query = query.Include(x => x.EventsAssignedSpeakers)
                     .ThenInclude(x => x.Speaker);
 
-            query = query.Where(x => x.Id == eventId);
+            query = query.AsNoTracking().Where(x => x.Id == eventId);
 
             return await query.FirstOrDefaultAsync();
         }
@@ -48,7 +49,7 @@ namespace Persistence.Services
             if (includeSpeakers) query = query.Include(x => x.EventsAssignedSpeakers)
                 .ThenInclude(x => x.Speaker);
 
-            query = query.OrderBy(x => x.Id).Where(x => x.Name.ToLower().Contains(name.ToLower()));
+            query = query.AsNoTracking().OrderBy(x => x.Id).Where(x => x.Name.ToLower().Contains(name.ToLower()));
 
             return await query.ToListAsync();
         }

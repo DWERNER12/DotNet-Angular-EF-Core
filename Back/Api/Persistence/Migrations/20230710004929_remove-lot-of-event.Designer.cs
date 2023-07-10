@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Persistence.Context;
+using Persistence.Contexts;
 
 #nullable disable
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230628221449_Initial")]
-    partial class Initial
+    [Migration("20230710004929_remove-lot-of-event")]
+    partial class removelotofevent
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,9 +48,6 @@ namespace Persistence.Migrations
                     b.Property<string>("Local")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Lot")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -60,7 +57,12 @@ namespace Persistence.Migrations
                     b.Property<int>("QuantityPeople")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SpeakerId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SpeakerId");
 
                     b.ToTable("Events");
                 });
@@ -76,20 +78,12 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("EventAssignedSpeakerEventId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EventAssignedSpeakerSpeakerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.HasKey("EventId", "SpeakerId");
 
                     b.HasIndex("SpeakerId");
-
-                    b.HasIndex("EventAssignedSpeakerEventId", "EventAssignedSpeakerSpeakerId");
 
                     b.ToTable("EventsAssignedSpeakers");
                 });
@@ -193,6 +187,13 @@ namespace Persistence.Migrations
                     b.ToTable("Speakers");
                 });
 
+            modelBuilder.Entity("Domain.Event", b =>
+                {
+                    b.HasOne("Domain.Speaker", null)
+                        .WithMany("Events")
+                        .HasForeignKey("SpeakerId");
+                });
+
             modelBuilder.Entity("Domain.EventAssignedSpeaker", b =>
                 {
                     b.HasOne("Domain.Event", "Event")
@@ -202,14 +203,10 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Speaker", "Speaker")
-                        .WithMany()
+                        .WithMany("EventsAssignedSpeakers")
                         .HasForeignKey("SpeakerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Domain.EventAssignedSpeaker", null)
-                        .WithMany("EventsAssignedSpeakers")
-                        .HasForeignKey("EventAssignedSpeakerEventId", "EventAssignedSpeakerSpeakerId");
 
                     b.Navigation("Event");
 
@@ -251,13 +248,12 @@ namespace Persistence.Migrations
                     b.Navigation("SocialNetworks");
                 });
 
-            modelBuilder.Entity("Domain.EventAssignedSpeaker", b =>
-                {
-                    b.Navigation("EventsAssignedSpeakers");
-                });
-
             modelBuilder.Entity("Domain.Speaker", b =>
                 {
+                    b.Navigation("Events");
+
+                    b.Navigation("EventsAssignedSpeakers");
+
                     b.Navigation("SocialNetworks");
                 });
 #pragma warning restore 612, 618

@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Application;
+using Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Persistence.Context;
-using System.Net;
+using Persistence.Contexts;
+using Persistence.Interfaces;
+using Persistence.Services;
 
 namespace Api
 {
@@ -21,7 +24,11 @@ namespace Api
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddScoped<IEventsService, EventsService>();
+            services.AddScoped<IEventPersistence, EventPersistence>();
+            services.AddScoped<IGeneralPersistence, GeneralPersistence>();
             services.AddCors();
             services.AddSwaggerGen(c =>
             {

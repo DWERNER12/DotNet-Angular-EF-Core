@@ -91,3 +91,7 @@ C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\b
 C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\bin\Debug\net6.0\Application.pdb
 C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\bin\Debug\net6.0\Domain.pdb
 C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\bin\Debug\net6.0\Persistence.pdb
+C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

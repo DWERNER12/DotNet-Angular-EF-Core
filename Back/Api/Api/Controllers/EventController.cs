@@ -1,6 +1,6 @@
-﻿using Domain;
+﻿using Application.Interfaces;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
-using Persistence.Context;
 
 namespace Api.Controllers
 {
@@ -8,72 +8,109 @@ namespace Api.Controllers
     [Route("api/[controller]")]
     public class EventController : ControllerBase
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IEventsService _eventsService;
 
-        public EventController(ApplicationDbContext db)
+        public EventController(IEventsService eventsService)
         {
-            _db = db;
+            _eventsService = eventsService;
         }
 
-        public IEnumerable<Event> _Event = new Event[]
-        {
-            new Event()
-            {
-                Name = "ASP.NET CORE 6.0",
-                Lot = "1º Lote",
-                QuantityPeople = 250,
-                Local = "São Paulo",
-                Date = Convert.ToDateTime("24/08/2023"),
-                ImageURL ="img1.png",
-                Email = "teste@teste.com",
-                Phone = "11123451234",
-                CreatedAt = DateTime.Now,
-            },
-            new Event()
-            {
-                Name = "Angular 14",
-                Lot = "2º Lote",
-                QuantityPeople = 80,
-                Local = "Rio de Janeiro",
-                Date = Convert.ToDateTime("10/12/2023"),
-                ImageURL ="img2.png",
-                Email = "teste@teste.com",
-                Phone = "11123451234",
-                CreatedAt = DateTime.Now,
-            }, 
-            new Event()
-            {
-                Name = "EF Core 7.0.8",
-                Lot = "2º Lote",
-                QuantityPeople = 150,
-                Local = "Paraiba",
-                Date = Convert.ToDateTime("16/07/2023"),
-                ImageURL ="img3.png",
-                Email = "teste@teste.com",
-                Phone = "11123451234",
-                CreatedAt = DateTime.Now,
-            }
-        };
         [HttpGet]
-        public List<Event> Get()
+        public async Task<IActionResult> Get()
         {
-            var eventDb = _db.Events.ToList();
-            return eventDb;
+            try
+            {
+                var eventsDb = await _eventsService.GetAllEventsAsync(true);
+                if (eventsDb == null) return NotFound("Nenhum evento encontrado!");
+
+                return Ok(eventsDb);
+
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar Eventos. Erro: {ex.Message}");
+            }
         }
         [HttpGet("{id}")]
-        public Event GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var eventDb = _db.Events.Where(x => x.Id == id).FirstOrDefault();
-            return eventDb;
+            try
+            {
+                var eventDb = await _eventsService.GetEventsByIdAsync(id, true);
+                if (eventDb == null) return NotFound("Nenhum evento encontrado!");
+
+                return Ok(eventDb);
+
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar eventoId{id}. Erro: {ex.Message}");
+            }
         }
-        [HttpPost("{name}")]
-        public async Task<IActionResult> Create(string name)
+        [HttpGet("name/{name}")]
+        public async Task<IActionResult> GetByName(string name)
         {
-            var newEvent = _Event.Where(x => x.Name == name).FirstOrDefault();
-            
-            await _db.Events.AddAsync(newEvent);
-            await _db.SaveChangesAsync();
-            return Ok();
+            try
+            {
+                var eventDb = await _eventsService.GetAllEventsByNameAsync(name, true);
+                if (eventDb == null) return NotFound("Nenhum evento encontrado!");
+
+                return Ok(eventDb);
+
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar evento {name}. Erro: {ex.Message}");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Event model)
+        {
+            try
+            {
+                var newEvent = await _eventsService.AddEvent(model);
+                if (newEvent == null) return BadRequest($"Erro ao tentar adicionar evento {model.Name}!");
+
+                return Ok(newEvent);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                   $"Erro ao tentar adicionar evento {model.Name}. Erro: {ex.Message}");
+            }
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, Event model)
+        {
+            try
+            {
+                var newEvent = await _eventsService.UpdateEvent(id, model);
+                if (newEvent == null) return BadRequest($"Erro ao tentar editar eventoId{id} {model.Name}!");
+
+                return Ok(newEvent);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                   $"Erro ao tentar editar evento {model.Name}. Erro: {ex.Message}");
+            }
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                return await _eventsService.DeleteEvent(id) ? Ok("Deletado") : BadRequest("Evento não deletado"); 
+
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                   $"Erro ao tentar deletar evento. Erro: {ex.Message}");
+            }
         }
 
     }

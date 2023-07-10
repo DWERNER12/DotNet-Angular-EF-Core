@@ -1,12 +1,8 @@
 ﻿using Domain;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Context;
+using Persistence.Contexts;
 using Persistence.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Persistence.Services
 {
@@ -26,7 +22,7 @@ namespace Persistence.Services
             if (includeEvents) query = query.Include(x => x.EventsAssignedSpeakers)
                 .ThenInclude(x => x.Event);
 
-            query = query.OrderBy(x => x.Id);
+            query = query.AsNoTracking().OrderBy(x => x.Id);
 
             return await query.ToListAsync();
         }
@@ -39,7 +35,7 @@ namespace Persistence.Services
             if (includeEvents) query = query.Include(x => x.EventsAssignedSpeakers)
                 .ThenInclude(x => x.Event);
 
-            query = query.OrderBy(x => x.Id).Where(x => x.Name.ToLower().Contains(name.ToLower()));
+            query = query.AsNoTracking().OrderBy(x => x.Id).Where(x => x.Name.ToLower().Contains(name.ToLower()));
 
             return await query.ToListAsync();
         }
@@ -52,7 +48,7 @@ namespace Persistence.Services
             if (includeEvents) query = query.Include(x => x.EventsAssignedSpeakers)
                 .ThenInclude(x => x.Event);
 
-            query = query.Where(x => x.Id == speakerId);
+            query = query.AsNoTracking().Where(x => x.Id == speakerId);
 
 
             return await query.FirstOrDefaultAsync();

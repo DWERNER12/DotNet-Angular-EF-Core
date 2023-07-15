@@ -6,9 +6,13 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EventsComponent } from './events/events.component';
-import { SpeakersComponent } from './speakers/speakers.component';
+import { EventsComponent } from './components/events/events.component';
+import { SpeakersComponent } from './components/speakers/speakers.component';
 import { NavComponent } from './nav/nav.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
+import { ProfilesComponent } from './components/profiles/profiles.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TitleComponent } from 'src/shared/title/title.component';
 
 import { EventService } from './services/event.service';
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
@@ -30,6 +34,10 @@ interface NgxSpinnerConfig {
     AppComponent,
     EventsComponent,
     SpeakersComponent,
+    ContactsComponent,
+    ProfilesComponent,
+    DashboardComponent,
+    TitleComponent,
     NavComponent,
     DateTimeFormatPipe
    ],

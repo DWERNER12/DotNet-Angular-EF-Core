@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -10,24 +10,52 @@ import { EventsComponent } from './events/events.component';
 import { SpeakersComponent } from './speakers/speakers.component';
 import { NavComponent } from './nav/nav.component';
 
+import { EventService } from './services/event.service';
+import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
+interface NgxSpinnerConfig {
+  type?: string;
+}
 
 @NgModule({
   declarations: [			
     AppComponent,
-      EventsComponent,
-      SpeakersComponent,
-      NavComponent
+    EventsComponent,
+    SpeakersComponent,
+    NavComponent,
+    DateTimeFormatPipe
    ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
-    FormsModule,
+    BsDropdownModule.forRoot(),
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      progressAnimation: 'decreasing',
+      progressBar: true
+    }),
+    NgxSpinnerModule.forRoot({ type: 'pacman' }),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    EventService
+  ],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

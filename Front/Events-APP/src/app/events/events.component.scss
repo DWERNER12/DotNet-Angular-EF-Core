@@ -1,9 +1,16 @@
 .bg-event-bg{
-    background-color: #adb5bd;
+    background-color: #333333;
 }
 .bg-event-card{
-    background-color: #6c757d;
+    background-color: #4a81c4;
+    border: none !important;
 }
 .form-control{
-    background-color: #ced4da !important;
+    background-color: #f1f1f1 !important;
+}
+.max-width-100{
+    max-width: 100px !important;
+}
+.max-width-75{
+    max-width: 75px !important;
 }

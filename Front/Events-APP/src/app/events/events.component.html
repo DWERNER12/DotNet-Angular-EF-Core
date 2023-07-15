@@ -1,53 +1,52 @@
 <div class="mt-3 bg-event-bg shadow p-3 rounded bg-gradient">
     <div class="card-header d-flex justify-content-between align-items-center p-3 mb-1 rounded">
-      <h5>Eventos</h5>
+      <h5 class="text-light">Eventos</h5>
       <div class="form-group d-flex align-items-center">
         <input type="search" class="form-control mr-2" placeholder="Buscar" [(ngModel)]="filterList">
-        <!-- <button class="btn btn-outline-succes">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button> -->
       </div>
   </div>
-  <div class="card shadow-lg rounded bg-event-card bg-gradient">
-    <div class="card-header d-flex justify-content-around align-items-center">
+  <div class="shadow-lg rounded bg-event-card bg-gradient">
+    <div class="card-header d-flex justify-content-around align-items-center p-1">
       <button type="button" class="btn btn-outline-dark btn-sm" (click)="expandImg()">
         <i class="fa-regular fa-image"></i>
       </button>
-      <label class="fs-4">Tema</label>
-      <label class="fs-4">Local</label>
-      <label class="fs-4">Data</label>
-      <label class="fs-4">Qtd Pessoas</label>
-      <label class="fs-4">Lote</label>
+      <label class="fs-4 max-width-75 flex-grow-1">Tema</label>
+      <label class="fs-4 max-width-75 flex-grow-1">Local</label>
+      <label class="fs-4 max-width-75 flex-grow-1">Data</label>
+      <label class="fs-4 max-width-75 flex-grow-1">Qtd Pessoas</label>
+      <label class="fs-4 max-width-75 flex-grow-1">Lote</label>
+      <label class="fs-4 max-width-75 flex-grow-1">Ação</label>
     </div>
   </div>
 </div>
   <div *ngIf="events.length">
-    <div *ngFor="let event of eventsFilters" class="card mt-2 bg-event-card shadow-lg rounded">
-      <div class="d-flex justify-content-around mt-3 ">
-        <div>
-          <div [collapse]="!isExpand" [isAnimated]="true">
-            <img src="/assets/img/{{event.imageURL}}" [style.width.px]="widthImg" [style.margin.px]="marginImg">
+    <div *ngFor="let event of eventsFilters" class="card mt-2 ms-3 me-3 bg-event-card shadow-lg rounded">
+      <div class="d-flex justify-content-around align-items-center">
+          <div>
+            <img src="/assets/img/{{event.imageURL}}" [style.width.px]="widthImg" [style.margin.px]="marginImg" [style.height.px]="heightImg">
             <!--teste binding nos estilos das img-->
           </div>
-        </div>
-        <div>
-          <h5 class="text-center">{{event.name}}</h5>
-        </div>
-        <div>
-          <h5 class="text-center">{{event.local}}</h5>
-        </div>
-        <div>
-          <h5 class="text-center">{{event.date}}</h5>
-        </div>
-        <div>
-          <h5 class="text-center">{{event.quantityPeople}}</h5>
-        </div>
-        <div>
-          <h5 class="text-center">{{event.Lot}}</h5>
-        </div>
+          <h5 class="text-center max-width-100 flex-grow-1">{{event.name}}</h5>
+          <h5 class="text-center max-width-100 flex-grow-1">{{event.local}}</h5>
+          <h5 class="text-center max-width-100 flex-grow-1">{{event.date | DateTimeFormat}}</h5>
+          <h5 class="text-center max-width-100 flex-grow-1">{{event.quantityPeople}}</h5>
+          <h5 class="text-center max-width-100 flex-grow-1">{{event.lots[0].name}}</h5>
+          <div>
+            <button class="btn btn-warning m-1" tooltip="Editar">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </button>
+            <button class="btn btn-danger m-1" tooltip="Deletar" (click)="openModal(template)">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
       </div>
     </div>
   </div>
-  <div *ngIf="!events.length" class="card text-center mt-3">
-    <h4>Eventos não encontrados!</h4>
-  </div>
+
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p>Tem certeza que deseja deletar esse evento?</p>
+      <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+      <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+    </div>
+  </ng-template>

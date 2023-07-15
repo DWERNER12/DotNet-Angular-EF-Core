@@ -5,14 +5,14 @@
   </button>
   <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarNav">
     <ul class="navbar-nav me-auto">
-      <li class="nav-item active">
-        <a class="nav-link ms-2" href="#">Eventos <span class="sr-only">(current)</span></a>
+      <li class="nav-item " routerLinkActive="active">
+        <a class="nav-link ms-2" routerLink="/eventos">Eventos <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link ms-2" href="#">Palestrantes</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link ms-2" routerLink="/palestrantes">Palestrantes</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link ms-2" href="#">Contatos</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link ms-2" routerLink="/contatos">Contatos</a>
       </li>
     </ul>
     <div class="btn-group navbar-nav me-5" dropdown>
@@ -22,11 +22,9 @@
       </button>
       <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
           role="menu" aria-labelledby="button-basic">
-        <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+        <li role="menuitem"><a class="dropdown-item"  routerLink="/perfil">perfil</a></li>
         <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+        <li role="menuitem"><a class="dropdown-item" href="#">Sair</a>
         </li>
       </ul>
     </div>

@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventsComponent } from './components/events/events.component';
 import { SpeakersComponent } from './components/speakers/speakers.component';
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from '../shared/nav/nav.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';

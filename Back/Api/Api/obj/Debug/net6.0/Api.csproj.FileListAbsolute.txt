@@ -95,3 +95,4 @@ C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\b
 C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\david\Repositorios\CursoFullStack\DotNet-Angular-EF-Core\Back\Api\Api\obj\Debug\net6.0\Api.sourcelink.json

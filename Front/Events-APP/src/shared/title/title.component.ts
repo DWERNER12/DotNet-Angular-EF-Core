@@ -6,10 +6,18 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./title.component.scss']
 })
 export class TitleComponent implements OnInit {
-  @Input() title: string ='';
+  @Input() title: string = '';
+  @Input() iconClass: string = '';
+  @Input() subtitle: string = 'Desde 2023';
+  
+  private _filterList: string = '';
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  public get filterList(): string{
+    return this._filterList;
+  }
 }
